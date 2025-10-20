@@ -73,12 +73,62 @@ impl<T> LinkedList<T> {
 	{
 		//TODO
 		Self {
-            length: 0,
-            start: None,
-            end: None,
+             let mut merged_list = LinkedList::new();
+        merged_list.length = list_a.length + list_b.length; // 直接计算总长度
+
+        // 当前待比较的节点指针（分别指向 list_a 和 list_b 的当前节点）
+        let mut a_current = list_a.start;
+        let mut b_current = list_b.start;
+
+        // 遍历两个链表，比较并合并节点
+        while let (Some(a_ptr), Some(b_ptr)) = (a_current, b_current) {
+            // 安全解引用节点（通过 NonNull 访问原始指针）
+            let a_node = unsafe { a_ptr.as_ref() };
+            let b_node = unsafe { b_ptr.as_ref() };
+
+            if a_node.val <= b_node.val {
+                // 将 a_node 接入 merged_list，并移动 a_current 到下一个节点
+                merged_list.push_node(a_ptr);
+                a_current = a_node.next;
+            } else {
+                // 将 b_node 接入 merged_list，并移动 b_current 到下一个节点
+                merged_list.push_node(b_ptr);
+                b_current = b_node.next;
+            }
         }
-	}
+
+        // 处理 list_a 剩余节点
+        while let Some(a_ptr) = a_current {
+            merged_list.push_node(a_ptr);
+            a_current = unsafe { a_ptr.as_ref().next };
+        }
+
+        // 处理 list_b 剩余节点
+        while let Some(b_ptr) = b_current {
+            merged_list.push_node(b_ptr);
+            b_current = unsafe { b_ptr.as_ref().next };
+        }
+
+        merged_list
+    }
+
+    // 辅助函数：将节点指针接入 merged_list（更新 start 和 end）
+    fn push_node(&mut self, node_ptr: NonNull<Node<T>>) {
+        // 复制节点指针（避免原链表的 next 指针被修改）
+        let mut node = unsafe { Box::from_raw(node_ptr.as_ptr()) };
+        node.next = None; // 断开原链表的连接，避免循环引用
+        let new_ptr = Some(unsafe { NonNull::new_unchecked(Box::into_raw(node)) });
+
+        match self.end {
+            None => self.start = new_ptr, // 新链表为空时，start 和 end 都指向新节点
+            Some(end_ptr) => unsafe { (*end_ptr.as_ptr()).next = new_ptr }, // 接入尾部
+        }
+        self.end = new_ptr;
+    }
 }
+        }
+	
+
 
 impl<T> Display for LinkedList<T>
 where
