@@ -6,7 +6,32 @@
 // I AM NOT DONE
 
 fn sort<T>(array: &mut [T]){
-	//TODO
+	fn sort<T: Ord>(array: &mut [T]) {
+    if array.len() <= 1 {
+        return;
+    }
+    
+    let pivot_index = partition(array);
+    let (left, right) = array.split_at_mut(pivot_index);
+    sort(&mut left[..pivot_index]);
+    sort(&mut right[1..]);
+}
+
+fn partition<T: Ord>(array: &mut [T]) -> usize {
+    let pivot_index = array.len() - 1;
+    let mut i = 0;
+    
+    for j in 0..pivot_index {
+        if array[j] <= array[pivot_index] {
+            array.swap(i, j);
+            i += 1;
+        }
+    }
+    
+    array.swap(i, pivot_index);
+    i
+}
+
 }
 #[cfg(test)]
 mod tests {
