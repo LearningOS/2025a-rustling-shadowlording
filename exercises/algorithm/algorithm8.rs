@@ -55,6 +55,7 @@ impl<T> Default for Queue<T> {
 pub struct myStack<T>
 {
 	//TODO
+
 	q1:Queue<T>,
 	q2:Queue<T>
 }
@@ -68,13 +69,40 @@ impl<T> myStack<T> {
     }
     pub fn push(&mut self, elem: T) {
         //TODO
+        if !self.q1.is_empty() {
+            self.q1.enqueue(elem);
+        } else {
+            self.q2.enqueue(elem);
+        }
     }
     pub fn pop(&mut self) -> Result<T, &str> {
         //TODO
-		Err("Stack is empty")
+        if self.is_empty() {
+            return Err("Stack is empty");
+        }
+        
+        // 确定哪个队列有数据，哪个是空的
+        let (source, target) = if !self.q1.is_empty() {
+            (&mut self.q1, &mut self.q2)
+        } else {
+            (&mut self.q2, &mut self.q1)
+        };
+        
+        // 将源队列中的元素（除了最后一个）全部转移到目标队列
+        while source.size() > 1 {
+            if let Ok(element) = source.dequeue() {
+                target.enqueue(element);
+            }
+        }
+        
+        // 返回源队列的最后一个元素（即栈顶元素）
+        source.dequeue()
     }
+		Err("Stack is empty")
+    
     pub fn is_empty(&self) -> bool {
 		//TODO
+         self.q1.is_empty() && self.q2.is_empty()
         true
     }
 }
