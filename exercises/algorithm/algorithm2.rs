@@ -73,7 +73,18 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn reverse(&mut self){
-		// TODO
+    // 交换链表的头和尾指针
+    std::mem::swap(&mut self.start, &mut self.end);
+    let mut current = self.start;
+    while let Some(mut node_ptr) = current {
+        let node = unsafe { node_ptr.as_mut() };
+        // 交换当前节点的prev和next指针
+        std::mem::swap(&mut node.prev, &mut node.next);
+        // 移动到原来的prev节点（现在是交换后的next）
+        current = node.next;
+    
+}
+
 	}
 }
 
