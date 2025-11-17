@@ -11,12 +11,10 @@
 
 // I AM NOT DONE
 
-use std::f32;
+use std::f32::consts::pi;
 
 fn main() {
-    let pi = 3.14f32;
     let radius = 5.00f32;
-
     let area = pi * f32::powi(radius, 2);
 
     println!(
