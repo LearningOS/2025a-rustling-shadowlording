@@ -44,8 +44,40 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s.is_empty() {
+            return Person::default();
+        }
+
+        // Step 2: Split on commas
+        let parts: Vec<&str> = s.split(',').collect();
+
+        // Check if we have exactly 2 parts (name and age)
+        if parts.len() != 2 {
+            return Person::default();
+        }
+
+        let name = parts[0];
+        let age_str = parts[1];
+
+        // Step 3: Check if name is empty
+        if name.is_empty() {
+            return Person::default();
+        }
+
+        // Step 4: Parse age
+        let age = match age_str.parse::<usize>() {
+            Ok(age) => age,
+            Err(_) => return Person::default(),
+        };
+
+        // Step 5: Return new Person if everything is valid
+        Person {
+            name: name.to_string(),
+            age,
+        }
     }
-}
+    }
+
 
 fn main() {
     // Use the `from` function
