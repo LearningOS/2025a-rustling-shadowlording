@@ -8,8 +8,9 @@
 // I AM NOT DONE
 
 fn main() {
-    let word = String::from("green"); // Try not changing this line :)
-    if is_a_color_word(word) {
+    let word = String::from("green"); // 保持此行不变
+    // 传递 &word（&String 会自动解引用为 &str）
+    if is_a_color_word(&word) { 
         println!("That is a color word I know!");
     } else {
         println!("That is not a color word I know.");
