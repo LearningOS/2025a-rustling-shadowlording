@@ -10,12 +10,10 @@
 // hint.
 
 // I AM NOT DONE
-
-pub fn generate_nametag_text(name: String) -> Option<String> {
+pub fn generate_nametag_text(name: String) -> Result<String, String> { // 修复：返回类型改为 Result
     if name.is_empty() {
-        // Empty names aren't allowed.
+        // 修复：删除多余的 None，仅返回 Err
         Err("`name` was empty; it must be nonempty.".into())
-        None
     } else {
         Ok(format!("Hi! My name is {}", name))
     }
@@ -37,7 +35,6 @@ mod tests {
     fn explains_why_generating_nametag_text_fails() {
         assert_eq!(
             generate_nametag_text("".into()),
-            // Don't change this line
             Err("`name` was empty; it must be nonempty.".into())
         );
     }
