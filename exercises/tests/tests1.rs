@@ -10,12 +10,12 @@
 // Execute `rustlings hint tests1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[cfg(test)]
 mod tests {
     #[test]
     fn you_can_assert() {
-        assert!();
+        // 修复1：assert!需要传入布尔表达式（解决编译错误）
+        // 修复2：将表达式改为false（让测试失败，满足题目要求）
+        assert!(1 + 1 == 3);
     }
 }
