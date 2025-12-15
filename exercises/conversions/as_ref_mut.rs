@@ -8,9 +8,7 @@
 // hint.
 
 // I AM NOT DONE
-
 use std::convert::{AsMut, AsRef};
-use std::ops::DerefMut; // 导入DerefMut trait
 
 // Obtain the number of bytes (not characters) in the given argument.
 fn byte_counter<T: AsRef<str>>(arg: T) -> usize {
@@ -23,10 +21,9 @@ fn char_counter<T: AsRef<str>>(arg: T) -> usize {
 }
 
 // Squares a number using as_mut().
-// 优化：使用更通用的AsMut<u32>约束，支持所有可转为&mut u32的类型
 fn num_sq<T: AsMut<u32>>(arg: &mut T) {
-    let value = *arg.as_mut(); // 通过as_mut()获取&mut u32，解引用拿到值
-    *arg.as_mut() = value * value; // 重新赋值平方后的值
+    // 修复：通过as_mut()获取&mut u32，直接操作其值
+    *arg.as_mut() *= *arg.as_mut();
 }
 
 #[cfg(test)]
@@ -64,7 +61,6 @@ mod tests {
         assert_eq!(*num, 9);
     }
     
-    // 新增测试：验证&mut u32也能生效（体现AsMut的通用性）
     #[test]
     fn mult_ref() {
         let mut num = 4;
