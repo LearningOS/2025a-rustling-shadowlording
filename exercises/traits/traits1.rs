@@ -15,6 +15,15 @@ trait AppendBar {
 
 impl AppendBar for String {
     // TODO: Implement `AppendBar` for type `String`.
+    fn append_bar(self) -> Self {
+        // 方法1：使用 + 运算符（需注意类型匹配，"Bar"是&str，需通过format!转为String）
+        self + "Bar"
+        
+        // 方法2：使用 push_str 方法（需先通过 into 转换为可变引用，再修改）
+        // let mut s = self;
+        // s.push_str("Bar");
+        // s
+    }
 }
 
 fn main() {
