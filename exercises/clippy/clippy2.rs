@@ -4,13 +4,8 @@
 // hint.
 
 // I AM NOT DONE
-
 fn main() {
-    let mut res = 42;
+    let res = 42 + option.unwrap_or(0);
     let option = Some(12);
-     if let Some(x) =  option {
-        res += x;
-    }
     println!("{}", res);
 }
-
