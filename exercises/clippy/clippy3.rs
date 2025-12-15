@@ -23,7 +23,7 @@ fn main() {
     #[allow(clippy::print_literal)]  // 修复：允许打印空Vec
     println!("This Vec is empty, see? {my_empty_vec:?}");
 
-    let mut value_a = 45;
+    let mut value_a = 450;
     let mut value_b = 66;
     std::mem::swap(&mut value_a, &mut value_b);
     println!("value a: {value_a}; value b: {value_b}");
