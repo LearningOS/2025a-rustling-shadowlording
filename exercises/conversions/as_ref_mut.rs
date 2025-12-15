@@ -7,8 +7,7 @@
 // Execute `rustlings hint as_ref_mut` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-use std::convert::{AsMut, AsRef};
+// I AM NOT DONEuse std::convert::{AsMut, AsRef};
 
 // Obtain the number of bytes (not characters) in the given argument.
 fn byte_counter<T: AsRef<str>>(arg: T) -> usize {
@@ -22,8 +21,9 @@ fn char_counter<T: AsRef<str>>(arg: T) -> usize {
 
 // Squares a number using as_mut().
 fn num_sq<T: AsMut<u32>>(arg: &mut T) {
-    // 修复：通过as_mut()获取&mut u32，直接操作其值
-    *arg.as_mut() *= *arg.as_mut();
+    // 修复：先通过as_mut()获取&mut u32，再解引用操作值
+    let val = arg.as_mut();
+    *val *= *val;
 }
 
 #[cfg(test)]
