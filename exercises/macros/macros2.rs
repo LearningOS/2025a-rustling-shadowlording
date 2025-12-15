@@ -8,7 +8,7 @@
 
 macro_rules! my_macro {
     () => {
-        println!("Check out my macro!");
+        println!("Check out the macro!");
     };
 }
 
