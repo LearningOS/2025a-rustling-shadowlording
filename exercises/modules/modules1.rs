@@ -11,7 +11,8 @@ mod sausage_factory {
         String::from("Ginger")
     }
 
-    Pub fn make_sausage() {
+    // 修复：将Pub改为小写pub（Rust关键字区分大小写）
+    pub fn make_sausage() {
         get_secret_recipe();
         println!("sausage!");
     }
