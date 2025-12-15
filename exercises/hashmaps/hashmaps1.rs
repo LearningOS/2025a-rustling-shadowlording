@@ -12,18 +12,19 @@
 // hint.
 
 // I AM NOT DONE
-
 use std::collections::HashMap;
 
 fn fruit_basket() -> HashMap<String, u32> {
-    let mut basket = // TODO: declare your hash map here.
+    let mut basket = HashMap::new(); // 初始化空HashMap（关键修复）
 
-    // Two bananas are already given for you :)
+    // 已有的香蕉
     basket.insert(String::from("banana"), 2);
 
-    // TODO: Put more fruits in your basket here.
-basket.insert(String::from("apple"), 3);   
-    basket.insert(String::from("orange"), 1); 
+    // 新增水果（满足至少3种、总数≥5）
+    basket.insert(String::from("apple"), 3);    // 3个苹果
+    basket.insert(String::from("orange"), 1);   // 1个橙子
+    // 可选：可再添加其他水果，如 mango: 2 → 总数会更多
+
     basket
 }
 
