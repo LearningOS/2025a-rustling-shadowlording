@@ -5,7 +5,7 @@
 
 // I AM NOT DONE
 fn main() {
+    let option = Some(12);  // 修复：变量声明需在使用前
     let res = 42 + option.unwrap_or(0);
-    let option = Some(12);
     println!("{}", res);
 }
