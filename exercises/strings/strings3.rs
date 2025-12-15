@@ -4,20 +4,19 @@
 // hint.
 
 // I AM NOT DONE
-
 fn trim_me(input: &str) -> String {
-    // TODO: Remove whitespace from both ends of a string!
-    ???
+    // Remove whitespace from both ends of the string
+    input.trim().to_string()
 }
 
 fn compose_me(input: &str) -> String {
-    // TODO: Add " world!" to the string! There's multiple ways to do this!
-    ???
+    // Add " world!" to the string using format!
+    format!("{} world!", input)
 }
 
 fn replace_me(input: &str) -> String {
-    // TODO: Replace "cars" in the string with "balloons"!
-    ???
+    // Replace all occurrences of "cars" with "balloons"
+    input.replace("cars", "balloons")
 }
 
 #[cfg(test)]
