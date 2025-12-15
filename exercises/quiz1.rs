@@ -15,12 +15,12 @@
 
 
 // Put your function here!
+// Put your function here!
 fn calculate_price_of_apples(number: i32) -> i32 {
-
     if number > 40 {
-        number
+        number * 1  // 超过40个，每个1 rustbuck
     } else {
-        number * 20
+        number * 2  // 40个及以下，每个2 rustbuck
     }
 }
 
