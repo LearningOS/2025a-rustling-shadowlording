@@ -5,8 +5,8 @@
 
 
 fn main() {
-    let x = 10;
-    if x == 10 {
+    let x = 100;
+    if x == 100 {
         println!("x is ten!");
     } else {
         println!("x is not ten!");
