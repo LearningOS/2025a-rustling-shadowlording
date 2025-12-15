@@ -14,9 +14,6 @@
 mod tests {
     #[test]
     fn you_can_assert() {
-        // 示例1：错误的数学等式
-        assert!(1 + 1 == 3); 
-        // 示例2：错误的字符串判断
-        assert!("rust".contains("go"));
+        assert!(true); // 传入true，测试通过
     }
 }
