@@ -17,17 +17,47 @@
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
 
 // I AM NOT DONE
+// 定义 Grade 特征：所有可作为成绩的类型需实现此特征
+pub trait Grade {
+    fn format_grade(&self) -> String;
+}
 
-pub struct ReportCard {
-    pub grade: f32,
+// 为 f32 实现 Grade 特征（数值型成绩）
+impl Grade for f32 {
+    fn format_grade(&self) -> String {
+        self.to_string()
+    }
+}
+
+// 为 &str 实现 Grade 特征（字母型成绩，如 "A+"）
+impl Grade for &str {
+    fn format_grade(&self) -> String {
+        self.to_string()
+    }
+}
+
+// 为 String 实现 Grade 特征（字母型成绩的所有权版本）
+impl Grade for String {
+    fn format_grade(&self) -> String {
+        self.clone()
+    }
+}
+
+// 使用泛型参数 G 约束成绩类型（必须实现 Grade 特征）
+pub struct ReportCard<G: Grade> {
+    pub grade: G,
     pub student_name: String,
     pub student_age: u8,
 }
 
-impl ReportCard {
+impl<G: Grade> ReportCard<G> {
     pub fn print(&self) -> String {
-        format!("{} ({}) - achieved a grade of {}",
-            &self.student_name, &self.student_age, &self.grade)
+        format!(
+            "{} ({}) - achieved a grade of {}",
+            &self.student_name,
+            &self.student_age,
+            self.grade.format_grade() // 调用特征方法格式化成绩
+        )
     }
 }
 
@@ -38,7 +68,7 @@ mod tests {
     #[test]
     fn generate_numeric_report_card() {
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: 2.1, // 数值型成绩（f32）
             student_name: "Tom Wriggle".to_string(),
             student_age: 12,
         };
@@ -50,9 +80,8 @@ mod tests {
 
     #[test]
     fn generate_alphabetic_report_card() {
-        // TODO: Make sure to change the grade here after you finish the exercise.
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: "A+", // 字母型成绩（&str）
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
         };
