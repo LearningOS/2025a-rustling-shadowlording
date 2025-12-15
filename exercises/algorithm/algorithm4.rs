@@ -4,6 +4,7 @@
 */
 
 //I AM NOT DONEuse std::cmp::Ordering;
+use std::cmp::Ordering;
 use std::fmt::Debug;
 
 
@@ -37,32 +38,24 @@ where
         }
     }
 
-    // 修复1：补全insert的Equal和Greater分支
     fn insert(&mut self, value: T) {
         match value.cmp(&self.value) {
-            // 小于：插入左子树
             Ordering::Less => match &mut self.left {
                 Some(left_node) => left_node.insert(value),
                 None => self.left = Some(Box::new(TreeNode::new(value))),
             },
-            // 大于：插入右子树
             Ordering::Greater => match &mut self.right {
                 Some(right_node) => right_node.insert(value),
                 None => self.right = Some(Box::new(TreeNode::new(value))),
             },
-            // 等于：忽略重复值（BST通常不存储重复）
-            Ordering::Equal => (),
+            Ordering::Equal => (), // 忽略重复值
         }
     }
 
-    // 修复2：实现TreeNode的search方法
     fn search(&self, value: &T) -> bool {
         match value.cmp(&self.value) {
-            // 小于：搜索左子树
             Ordering::Less => self.left.as_ref().map_or(false, |left| left.search(value)),
-            // 大于：搜索右子树
             Ordering::Greater => self.right.as_ref().map_or(false, |right| right.search(value)),
-            // 等于：找到目标
             Ordering::Equal => true,
         }
     }
@@ -76,7 +69,6 @@ where
         BinarySearchTree { root: None }
     }
 
-    // 插入逻辑保持不变（已正确调用TreeNode::insert）
     fn insert(&mut self, value: T) {
         match &mut self.root {
             Some(node) => node.insert(value),
@@ -84,7 +76,6 @@ where
         }
     }
 
-    // 修复3：修正search逻辑，调用TreeNode::search
     fn search(&self, value: T) -> bool {
         self.root.as_ref().map_or(false, |root| root.search(&value))
     }
