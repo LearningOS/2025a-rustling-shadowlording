@@ -7,7 +7,7 @@
 
 macro_rules! my_macro {
     ($name:expr) => {  
-        println!("Hello, {}! Check out my macro!", $name);
+        println!("Hello, {}! Check out the macro!", $name);
     };
 }
 
