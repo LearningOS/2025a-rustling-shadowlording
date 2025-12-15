@@ -12,7 +12,6 @@
 // hint.
 
 // I AM NOT DONE
-
 use std::collections::HashMap;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -33,10 +32,9 @@ fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
 }
 
 fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
-    // map is a hashmap with String keys and Progress values.
-    // map = { "variables1": Complete, "from_str": None, ... }
+    // 正确逻辑：过滤出等于目标值的元素，再统计数量
     map.values().filter(|&&v| v == value).count()
-    todo!();
+    // 已删除 todo!()，直接返回结果
 }
 
 fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
@@ -52,11 +50,9 @@ fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progres
 }
 
 fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
-    // collection is a slice of hashmaps.
-    // collection = [{ "variables1": Complete, "from_str": None, ... },
-    //     { "variables2": Complete, ... }, ... ]
-      collection.iter().map(|map| count_iterator(map, value)).sum()
-    todo!();
+    // 正确逻辑：遍历每个HashMap，调用count_iterator统计，最后求和
+    collection.iter().map(|map| count_iterator(map, value)).sum()
+    // 已删除 todo!()，直接返回结果
 }
 
 #[cfg(test)]
