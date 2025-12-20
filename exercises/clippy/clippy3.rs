@@ -18,7 +18,7 @@ fn main() {
     let my_empty_vec: Vec<i32> = Vec::new();
     println!("This Vec is empty, see? {my_empty_vec:?}");
 
-    let mut value_a = 45;
+    let mut value_a = 35;
     let mut value_b = 66;
     std::mem::swap(&mut value_a, &mut value_b);
     println!("value a: {value_a}; value b: {value_b}");
